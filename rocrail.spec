@@ -11,7 +11,7 @@ AutoReqProv:	On
 
 Name:		rocrail
 License:	GPL
-Group:		Productivity/Networking/Other
+Group:		Networking/Other
 Summary:	Model Railroad Control System
 Summary(de):	Steuersystem für Modelleisenbahnen
 Version:	1.3
@@ -45,7 +45,7 @@ in C/C++ based on the wxWidgets class library.
 
 %prep
 %setup -q -a 1 -a 10 -n Rocrail-Air
-# %patch1 -p1
+
 
 # remove (pre-)installed but unused binaries
 %{__rm} -rf "rocs/bin"
