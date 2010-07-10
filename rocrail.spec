@@ -3,7 +3,7 @@ Requires:	railroad-lsb >= 0
 
 
 BuildRequires:	gcc-c++
-BuildRequires:	wxGTK-devel >= 2.6
+BuildRequires:	wxGTK-devel >= 2.6 bzr
 
 AutoReqProv:	On
 
