@@ -9,7 +9,7 @@ AutoReqProv:	On
 %define oname	RocRail
 %define svnrel	Act
 
-Name:		Rocrail
+Name:		rocrail
 License:	GPL
 Group:		Networking/Other
 Summary:	Model Railroad Control System
