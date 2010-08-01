@@ -6,7 +6,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	wxGTK-devel >= 2.6 bzr
 
 AutoReqProv:	On
-
+%define oname	RocRail
 %define svnrel	Act
 
 Name:		Rocrail
@@ -18,7 +18,7 @@ Version:	1.2.6
 Release:	%mkrel 1
 URL:		http://www.rocrail.net/
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
-Source:		%{name}-%{svnrel}-%{version}.tar.bz2
+Source:		%{oname}-%{svnrel}-%{version}.tar.bz2
 # Source1:	%{name}-1.0.0-locxpms.tar.bz2
 # Source10:	%{name}-suse-ext.tar.bz2
 # Patch1:		%{name}-1.1.0svn3770-fix_paths.patch
