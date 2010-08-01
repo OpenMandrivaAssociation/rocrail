@@ -19,9 +19,9 @@ Release:	%mkrel 1
 URL:		http://www.rocrail.net/
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
 Source:		%{name}-%{svnrel}-%{version}.tar.bz2
-Source1:	%{name}-1.0.0-locxpms.tar.bz2
-Source10:	%{name}-suse-ext.tar.bz2
-Patch1:		%{name}-1.1.0svn3770-fix_paths.patch
+# Source1:	%{name}-1.0.0-locxpms.tar.bz2
+# Source10:	%{name}-suse-ext.tar.bz2
+# Patch1:		%{name}-1.1.0svn3770-fix_paths.patch
 
 %description
 RocRail is a C/C++ control viewing program for a digital
