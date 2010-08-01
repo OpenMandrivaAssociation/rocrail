@@ -6,7 +6,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	wxGTK-devel >= 2.6 bzr
 
 AutoReqProv:	On
-%define oname	RocRail
+%define oname	Rocrail
 %define svnrel	Act
 
 Name:		rocrail
