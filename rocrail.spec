@@ -7,18 +7,18 @@ BuildRequires:	wxGTK-devel >= 2.6 bzr
 
 AutoReqProv:	On
 
-%define svnrel	air-revno982
+%define svnrel	Act
 
-Name:		rocrail
+Name:		Rocrail
 License:	GPL
 Group:		Networking/Other
 Summary:	Model Railroad Control System
 Summary(de):	Steuersystem für Modelleisenbahnen
-Version:	1.3
+Version:	1.2.6
 Release:	%mkrel 1
 URL:		http://www.rocrail.net/
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
-Source:		%{name}-%{version}-%{svnrel}.tar.bz2
+Source:		%{name}-%{svnrel}-%{version}.tar.bz2
 Source1:	%{name}-1.0.0-locxpms.tar.bz2
 Source10:	%{name}-suse-ext.tar.bz2
 Patch1:		%{name}-1.1.0svn3770-fix_paths.patch
@@ -44,7 +44,7 @@ RocRail is a 2 tier application written for Linux and Windows
 in C/C++ based on the wxWidgets class library.
 
 %prep
-%setup -q -n Rocrail-Air
+%setup -q -n Rocrail-Act
 
 
 # remove (pre-)installed but unused binaries
