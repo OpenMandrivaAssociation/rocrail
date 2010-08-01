@@ -48,8 +48,6 @@ in C/C++ based on the wxWidgets class library.
 
 
 # remove (pre-)installed but unused binaries
-%{__rm} -rf "rocs/bin"
-# %{__ln_s} "../unxbin" "rocs/bin"
 
 %build
 %{__make} fromtar
