@@ -58,40 +58,40 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/desktop-directories
 mkdir -p $RPM_BUILD_ROOT/etc/init.d
 
-install -s -m 755 Rocrail/unxbin/rocrail $RPM_BUILD_ROOT%{_libdir}/rocrail/rocrail
-install -s -m 755 Rocrail/unxbin/lcdriver.so $RPM_BUILD_ROOT%{_libdir}/rocrail/lcdriver.so
-install -s -m 755 Rocrail/unxbin/barjut.so $RPM_BUILD_ROOT%{_libdir}/rocrail/barjut.so
-install -s -m 755 Rocrail/unxbin/hsi88.so $RPM_BUILD_ROOT%{_libdir}/rocrail/hsi88.so
-install -s -m 755 Rocrail/unxbin/p50.so $RPM_BUILD_ROOT%{_libdir}/rocrail/p50.so
-install -s -m 755 Rocrail/unxbin/p50x.so $RPM_BUILD_ROOT%{_libdir}/rocrail/p50x.so
-install -s -m 755 Rocrail/unxbin/srcp.so $RPM_BUILD_ROOT%{_libdir}/rocrail/srcp.so
-install -s -m 755 Rocrail/unxbin/dinamo.so $RPM_BUILD_ROOT%{_libdir}/rocrail/dinamo.so
-install -s -m 755 Rocrail/unxbin/om32.so $RPM_BUILD_ROOT%{_libdir}/rocrail/om32.so
-install -s -m 755 Rocrail/unxbin/lenz.so $RPM_BUILD_ROOT%{_libdir}/rocrail/lenz.so
-install -s -m 755 Rocrail/unxbin/roco.so $RPM_BUILD_ROOT%{_libdir}/rocrail/roco.so
-install -s -m 755 Rocrail/unxbin/zimo.so $RPM_BUILD_ROOT%{_libdir}/rocrail/zimo.so
-install -s -m 755 Rocrail/unxbin/ddx.so $RPM_BUILD_ROOT%{_libdir}/rocrail/ddx.so
-install -s -m 755 Rocrail/unxbin/slx.so $RPM_BUILD_ROOT%{_libdir}/rocrail/slx.so
-install -s -m 755 Rocrail/unxbin/loconet.so $RPM_BUILD_ROOT%{_libdir}/rocrail/loconet.so
-install -s -m 755 Rocrail/unxbin/opendcc.so $RPM_BUILD_ROOT%{_libdir}/rocrail/opendcc.so
-install -s -m 755 Rocrail/unxbin/rocgui $RPM_BUILD_ROOT%{_libdir}/rocrail/rocgui
-install -s -m 755 Rocrail/unxbin/virtual.so $RPM_BUILD_ROOT%{_libdir}/rocrail/virtual.so
+install -s -m 755 unxbin/rocrail $RPM_BUILD_ROOT%{_libdir}/rocrail/rocrail
+install -s -m 755 unxbin/lcdriver.so $RPM_BUILD_ROOT%{_libdir}/rocrail/lcdriver.so
+install -s -m 755 unxbin/barjut.so $RPM_BUILD_ROOT%{_libdir}/rocrail/barjut.so
+install -s -m 755 unxbin/hsi88.so $RPM_BUILD_ROOT%{_libdir}/rocrail/hsi88.so
+install -s -m 755 unxbin/p50.so $RPM_BUILD_ROOT%{_libdir}/rocrail/p50.so
+install -s -m 755 unxbin/p50x.so $RPM_BUILD_ROOT%{_libdir}/rocrail/p50x.so
+install -s -m 755 unxbin/srcp.so $RPM_BUILD_ROOT%{_libdir}/rocrail/srcp.so
+install -s -m 755 unxbin/dinamo.so $RPM_BUILD_ROOT%{_libdir}/rocrail/dinamo.so
+install -s -m 755 unxbin/om32.so $RPM_BUILD_ROOT%{_libdir}/rocrail/om32.so
+install -s -m 755 unxbin/lenz.so $RPM_BUILD_ROOT%{_libdir}/rocrail/lenz.so
+install -s -m 755 unxbin/roco.so $RPM_BUILD_ROOT%{_libdir}/rocrail/roco.so
+install -s -m 755 unxbin/zimo.so $RPM_BUILD_ROOT%{_libdir}/rocrail/zimo.so
+install -s -m 755 unxbin/ddx.so $RPM_BUILD_ROOT%{_libdir}/rocrail/ddx.so
+install -s -m 755 unxbin/slx.so $RPM_BUILD_ROOT%{_libdir}/rocrail/slx.so
+install -s -m 755 unxbin/loconet.so $RPM_BUILD_ROOT%{_libdir}/rocrail/loconet.so
+install -s -m 755 unxbin/opendcc.so $RPM_BUILD_ROOT%{_libdir}/rocrail/opendcc.so
+install -s -m 755 unxbin/rocgui $RPM_BUILD_ROOT%{_libdir}/rocrail/rocgui
+install -s -m 755 unxbin/virtual.so $RPM_BUILD_ROOT%{_libdir}/rocrail/virtual.so
 
-install -g users -m 666 Rocrail/rocrail/package/Rocrail.directory $RPM_BUILD_ROOT%{_datadir}/desktop-directories
-install -g users -m 666 Rocrail/rocrail/package/Roc*.desktop $RPM_BUILD_ROOT%{_datadir}/applications
+install -g users -m 666 rocrail/package/Rocrail.directory $RPM_BUILD_ROOT%{_datadir}/desktop-directories
+install -g users -m 666 rocrail/package/Roc*.desktop $RPM_BUILD_ROOT%{_datadir}/applications
 
-install -m 755 Rocrail/rocrail/package/roc*.sh $RPM_BUILD_ROOT%{_libdir}/rocrail
-install -g users -m 666 Rocrail/rocrail/package/rocraild.png $RPM_BUILD_ROOT%{_libdir}/rocrail
-install -g users -m 666 Rocrail/rocrail/package/rocraild $RPM_BUILD_ROOT/etc/init.d
-install -g users -m 666 Rocrail/rocrail/package/rocrail.xpm $RPM_BUILD_ROOT%{_libdir}/rocrail
-install -g users -m 666 Rocrail/rocrail/package/roc*.ini $RPM_BUILD_ROOT%{_libdir}/rocrail/default
-install -g users -m 666 Rocrail/rocrail/package/plan.xml $RPM_BUILD_ROOT%{_libdir}/rocrail/default
-install -g users -m 666 Rocrail/rocrail/package/neustadt.xml $RPM_BUILD_ROOT%{_libdir}/rocrail/default
+install -m 755 rocrail/package/roc*.sh $RPM_BUILD_ROOT%{_libdir}/rocrail
+install -g users -m 666 rocrail/package/rocraild.png $RPM_BUILD_ROOT%{_libdir}/rocrail
+install -g users -m 666 rocrail/package/rocraild $RPM_BUILD_ROOT/etc/init.d
+install -g users -m 666 rocrail/package/rocrail.xpm $RPM_BUILD_ROOT%{_libdir}/rocrail
+install -g users -m 666 rocrail/package/roc*.ini $RPM_BUILD_ROOT%{_libdir}/rocrail/default
+install -g users -m 666 rocrail/package/plan.xml $RPM_BUILD_ROOT%{_libdir}/rocrail/default
+install -g users -m 666 rocrail/package/neustadt.xml $RPM_BUILD_ROOT%{_libdir}/rocrail/default
 
-install -g users -m 666 Rocrail/rocgui/icons/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/icons
-install -g users -m 666 Rocrail/stylesheets/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/stylesheets
-install -d -g users -m 666 Rocrail/rocgui/svg/* $RPM_BUILD_ROOT%{_libdir}/rocrail/svg
-install -g users -m 666 Rocrail/rocrail/symbols/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/symbols
+install -g users -m 666 rocgui/icons/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/icons
+install -g users -m 666 stylesheets/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/stylesheets
+install -d -g users -m 666 rocgui/svg/* $RPM_BUILD_ROOT%{_libdir}/rocrail/svg
+install -g users -m 666 symbols/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/symbols
 
 %clean
 #rm -rf $RPM_BUILD_ROOT
