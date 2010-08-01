@@ -44,7 +44,7 @@ RocRail is a 2 tier application written for Linux and Windows
 in C/C++ based on the wxWidgets class library.
 
 %prep
-%setup -q -n Rocrail-Act
+%setup -q -n Rocrail-Act-1.2
 
 
 # remove (pre-)installed but unused binaries
