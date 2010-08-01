@@ -80,8 +80,8 @@ in C/C++ based on the wxWidgets class library.
 echo "%dir %{_bindir}" >>%{name}.filelist
 %{__install} -D -m 0755 "unxbin/rocrail" "%{buildroot}%{_bindir}/rocrail"
 echo "%{_bindir}/rocrail" >>%{name}.filelist
-%{__install} -D -m 0755 "unxbin/rocgui" "%{buildroot}%{_bindir}/rocgui.bin"
-echo "%{_bindir}/rocgui.bin" >>%{name}.filelist
+# %{__install} -D -m 0755 "unxbin/rocgui" "%{buildroot}%{_bindir}/rocgui.bin"
+# echo "%{_bindir}/rocgui.bin" >>%{name}.filelist
 cat >rocgui.sh <<EOF
 #!/bin/sh
 if [ ! -e ~/rocrail ] ; then
@@ -205,7 +205,7 @@ done
 #
 ##### APPLICATION IMAGES (locomotives and more)
 echo "%dir %{_datadir}/rocrail/images" >>%{name}.filelist
-for file in rocgui/xpm/locxpm/*.xpm; do
+for file in xpm/locxpm/*.xpm; do
   %{__install} -D -m 0644 "${file}" "%{buildroot}%{_datadir}/rocrail/images/$(basename ${file})"
   echo "%{_datadir}/rocrail/images/$(basename ${file})" >>%{name}.filelist
 done
