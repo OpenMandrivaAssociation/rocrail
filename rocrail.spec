@@ -48,6 +48,7 @@ in C/C++ based on the wxWidgets class library.
 
 %install
 %{__rm} -rf "%{buildroot}"
+pwd
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail/default
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail/icons
@@ -74,7 +75,7 @@ install -s -m 755 unxbin/ddx.so $RPM_BUILD_ROOT%{_libdir}/rocrail/ddx.so
 install -s -m 755 unxbin/slx.so $RPM_BUILD_ROOT%{_libdir}/rocrail/slx.so
 install -s -m 755 unxbin/loconet.so $RPM_BUILD_ROOT%{_libdir}/rocrail/loconet.so
 install -s -m 755 unxbin/opendcc.so $RPM_BUILD_ROOT%{_libdir}/rocrail/opendcc.so
-install -s -m 755 unxbin/rocgui $RPM_BUILD_ROOT%{_libdir}/rocrail/rocgui
+install -s -m 755 unxbin/rocview $RPM_BUILD_ROOT%{_libdir}/rocrail/rocview
 install -s -m 755 unxbin/virtual.so $RPM_BUILD_ROOT%{_libdir}/rocrail/virtual.so
 
 install -g users -m 666 rocrail/package/Rocrail.directory $RPM_BUILD_ROOT%{_datadir}/desktop-directories
@@ -117,13 +118,13 @@ install -g users -m 666 symbols/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/symbols
 %{_libdir}/rocrail/barjut.so
 %{_libdir}/rocrail/loconet.so
 %{_libdir}/rocrail/opendcc.so
-%{_libdir}/rocrail/rocgui
+%{_libdir}/rocrail/rocview
 %{_libdir}/rocrail/default/plan.xml
 %{_libdir}/rocrail/default/neustadt.xml
 %{_libdir}/rocrail/default/rocrail.ini
-%{_libdir}/rocrail/default/rocgui.ini
+%{_libdir}/rocrail/default/rocview.ini
 %{_libdir}/rocrail/rocrail.sh
-%{_libdir}/rocrail/rocgui.sh
+%{_libdir}/rocrail/rocview.sh
 %{_libdir}/rocrail/rocraild.png
 /etc/init.d/rocraild
 %{_libdir}/rocrail/rocrail.xpm
