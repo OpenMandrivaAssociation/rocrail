@@ -1,24 +1,29 @@
+# FIXME: str fmt check is temporarily disabled
+# as priority is to get package working even somehow (wally 08/2010)
+%define Werror_cflags %nil
 
-Requires:	railroad-lsb >= 0
+%define _provides_exceptions .\\+\\.so$
 
-
-BuildRequires:	gcc-c++
-BuildRequires:	wxGTK-devel >= 2.6 bzr
-
-AutoReqProv:	On
 %define oname	Rocrail
-%define svnrel	Act
+%define rname	air
+%define revno	986
+%define rel	1
 
 Name:		rocrail
-License:	GPL
+License:	GPLv2+
 Group:		Networking/Other
 Summary:	Model Railroad Control System
-Summary(de):	Steuersystem für Modelleisenbahnen
-Version:	1.2.6
-Release:	%mkrel 1
+Version:	1.3
+Release:	%mkrel -c rev%{revno} %{rel}
 URL:		http://www.rocrail.net/
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
-Source:		%{oname}-%{svnrel}-%{version}.tar.bz2
+Source:		%{name}-%{version}-%{rname}-revno%{revno}.tar.gz
+Patch1:		rocrail-fix_makefile.patch
+BuildRequires:  gcc-c++
+BuildRequires:  wxGTK-devel >= 2.6
+BuildRequires:  bzr
+Requires(post):	rpm-helper
+Requires(preun):	rpm-helper
 
 %description
 RocRail is a C/C++ control viewing program for a digital
@@ -41,100 +46,136 @@ RocRail is a 2 tier application written for Linux and Windows
 in C/C++ based on the wxWidgets class library.
 
 %prep
-%setup -q -n Rocrail-Act-1.2
+%setup -q -n %{oname}-Air
+%patch1 -p1
 
 %build
-%{__make} fromtar
+#fix filename
+mv "rocview/svg/themes/DB/signaldistant -2.svg" rocview/svg/themes/DB/signaldistant-2.svg
+
+#fix build flags
+find . -name "makefile" -exec sed -i -e 's|CC_EXTRA_FLAGS=.*|CC_EXTRA_FLAGS=-fPIC %{optflags}|g' {} \;
+find . -name "makefile" -exec sed -i -e 's|LNK_FLAGS=|LNK_FLAGS+=|g' {} \;
+find . -name "makefile" -exec sed -i -e 's|DEBUG=.*|DEBUG=|g' {} \;
+
+export LNK_FLAGS="%{ldflags}"
+
+#fix init script
+sed -i -e 's,rocraild_BIN=.*,rocraild_BIN=%{_libdir}/%{name}/rocrail,g' rocrail/package/rocraild
+sed -i -e 's,rocraild_PID=.*,rocraild_PID=%{_var}/run/rocraild.pid,g' rocrail/package/rocraild
+sed -i -e 's,rocraild_SH=.*,rocraild_SH=%{_libdir}/%{name}/rocraild.sh,g' rocrail/package/rocraild
+
+%make fromtar
 
 %install
-%{__rm} -rf "%{buildroot}"
-pwd
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail/default
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail/icons
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail/svg
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail/stylesheets
-mkdir -p $RPM_BUILD_ROOT%{_libdir}/rocrail/symbols
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/desktop-directories
-mkdir -p $RPM_BUILD_ROOT/etc/init.d
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot}%{_libdir}/%{name} install
 
-install -s -m 755 unxbin/rocrail $RPM_BUILD_ROOT%{_libdir}/rocrail/rocrail
-install -s -m 755 unxbin/lcdriver.so $RPM_BUILD_ROOT%{_libdir}/rocrail/lcdriver.so
-install -s -m 755 unxbin/barjut.so $RPM_BUILD_ROOT%{_libdir}/rocrail/barjut.so
-install -s -m 755 unxbin/hsi88.so $RPM_BUILD_ROOT%{_libdir}/rocrail/hsi88.so
-install -s -m 755 unxbin/p50.so $RPM_BUILD_ROOT%{_libdir}/rocrail/p50.so
-install -s -m 755 unxbin/p50x.so $RPM_BUILD_ROOT%{_libdir}/rocrail/p50x.so
-install -s -m 755 unxbin/srcp.so $RPM_BUILD_ROOT%{_libdir}/rocrail/srcp.so
-install -s -m 755 unxbin/dinamo.so $RPM_BUILD_ROOT%{_libdir}/rocrail/dinamo.so
-install -s -m 755 unxbin/om32.so $RPM_BUILD_ROOT%{_libdir}/rocrail/om32.so
-install -s -m 755 unxbin/lenz.so $RPM_BUILD_ROOT%{_libdir}/rocrail/lenz.so
-install -s -m 755 unxbin/roco.so $RPM_BUILD_ROOT%{_libdir}/rocrail/roco.so
-install -s -m 755 unxbin/zimo.so $RPM_BUILD_ROOT%{_libdir}/rocrail/zimo.so
-install -s -m 755 unxbin/ddx.so $RPM_BUILD_ROOT%{_libdir}/rocrail/ddx.so
-install -s -m 755 unxbin/slx.so $RPM_BUILD_ROOT%{_libdir}/rocrail/slx.so
-install -s -m 755 unxbin/loconet.so $RPM_BUILD_ROOT%{_libdir}/rocrail/loconet.so
-install -s -m 755 unxbin/opendcc.so $RPM_BUILD_ROOT%{_libdir}/rocrail/opendcc.so
-install -s -m 755 unxbin/rocview $RPM_BUILD_ROOT%{_libdir}/rocrail/rocview
-install -s -m 755 unxbin/virtual.so $RPM_BUILD_ROOT%{_libdir}/rocrail/virtual.so
+#install files which install doesn't handle
+mkdir -p %{buildroot}%{_datadir}/applications
+mkdir -p %{buildroot}%{_datadir}/desktop-directories
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_iconsdir}
+mkdir -p %{buildroot}%{_bindir}
 
-install -g users -m 666 rocrail/package/Rocrail.directory $RPM_BUILD_ROOT%{_datadir}/desktop-directories
-install -g users -m 666 rocrail/package/Roc*.desktop $RPM_BUILD_ROOT%{_datadir}/applications
+install -m 755 rocrail/package/rocraild $RPM_BUILD_ROOT%{_initrddir}/rocraild
 
-install -m 755 rocrail/package/roc*.sh $RPM_BUILD_ROOT%{_libdir}/rocrail
-install -g users -m 666 rocrail/package/rocraild.png $RPM_BUILD_ROOT%{_libdir}/rocrail
-install -g users -m 666 rocrail/package/rocraild $RPM_BUILD_ROOT/etc/init.d
-install -g users -m 666 rocrail/package/rocrail.xpm $RPM_BUILD_ROOT%{_libdir}/rocrail
-install -g users -m 666 rocrail/package/roc*.ini $RPM_BUILD_ROOT%{_libdir}/rocrail/default
-install -g users -m 666 rocrail/package/plan.xml $RPM_BUILD_ROOT%{_libdir}/rocrail/default
-install -g users -m 666 rocrail/package/neustadt.xml $RPM_BUILD_ROOT%{_libdir}/rocrail/default
+mv	%{buildroot}%{_libdir}/%{name}/%{name}.xpm \
+	%{buildroot}%{_libdir}/%{name}/rocraild.png \
+	%{buildroot}%{_iconsdir}
 
-install -g users -m 666 rocgui/icons/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/icons
-install -g users -m 666 stylesheets/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/stylesheets
-install -d -g users -m 666 rocgui/svg/* $RPM_BUILD_ROOT%{_libdir}/rocrail/svg
-install -g users -m 666 symbols/*.* $RPM_BUILD_ROOT%{_libdir}/rocrail/symbols
+#desktop files
+cat > %{buildroot}%{_datadir}/applications/rocrail.desktop << EOF
+[Desktop Entry]
+Type=Application
+Terminal=true
+Exec=%{name}
+Icon=rocraild
+Name=Rocrail
+Categories=Utility;
+EOF
+
+cat > %{buildroot}%{_datadir}/applications/rocview.desktop << EOF
+[Desktop Entry]
+Type=Application
+Exec=rocview
+Icon=%{name}
+Name=Rocview
+Categories=Utility;
+EOF
+
+#binary scripts
+cat > %{buildroot}%{_bindir}/rocrail << EOF
+#!/bin/sh
+if [ ! -e ~/.rocrail ] ; then
+	mkdir ~/.rocrail
+fi
+
+cd ~/.rocrail
+
+if pidof rocrail
+  then
+    echo "rocrail is running"
+  else
+    echo "rocrail is not running. start..."
+    %{_libdir}/rocrail/rocrail -console -l %{_libdir}/rocrail
+fi
+EOF
+
+cat > %{buildroot}%{_bindir}/rocview << EOF
+#!/bin/sh
+if [ ! -e ~/.rocrail ] ; then
+	mkdir ~/.rocrail
+fi
+
+if [ ! -e ~/.rocrail/rocview.ini ] ; then
+	cp %{_libdir}/rocrail/plan.xml ~/.rocrail
+fi
+
+if [ ! -e ~/.rocrail/svg ] ; then
+	ln -s %{_libdir}/rocrail/svg ~/.rocrail/svg
+fi
+
+if [ ! -e ~/.rocrail/images ] ; then
+	ln -s %{_libdir}/rocrail/images ~/.rocrail/images
+fi
+
+cd ~/.rocrail
+
+%{_libdir}/rocrail/rocview -sp %{_libdir}/rocrail -themespath . $1 $2 $3
+EOF
+
+cat > %{buildroot}%{_libdir}/%{name}/rocraild.sh << EOF
+#!/bin/sh
+cd %{_libdir}/rocrail/
+rm -f nohup.out
+nohup ./rocrail -l %{_libdir}/rocrail&
+EOF
+
+#ugly workaround
+echo 'echo "$!" > /var/run/rocraild.pid' >> %{buildroot}%{_libdir}/%{name}/rocraild.sh
+
+#fix rights
+chmod 644 %{buildroot}%{_libdir}/%{name}/plan.xml
+chmod 755 %{buildroot}%{_libdir}/%{name}/rocraild.sh
+
+#clean empty files
+find %{buildroot}%{_libdir}/%{name} -size 0 -type f -exec rm -rf {} \;
 
 %clean
-#rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
+
+%post
+%_post_service rocraild
+
+%preun
+%_preun_service rocraild
 
 %files
 %defattr(-,root,root)
-%doc
-
-%{_libdir}/rocrail/rocrail
-%{_libdir}/rocrail/lcdriver.so
-%{_libdir}/rocrail/hsi88.so
-%{_libdir}/rocrail/p50.so
-%{_libdir}/rocrail/p50x.so
-%{_libdir}/rocrail/srcp.so
-%{_libdir}/rocrail/dinamo.so
-%{_libdir}/rocrail/om32.so
-%{_libdir}/rocrail/zimo.so
-%{_libdir}/rocrail/lenz.so
-%{_libdir}/rocrail/roco.so
-%{_libdir}/rocrail/ddx.so
-%{_libdir}/rocrail/virtual.so
-%{_libdir}/rocrail/slx.so
-%{_libdir}/rocrail/barjut.so
-%{_libdir}/rocrail/loconet.so
-%{_libdir}/rocrail/opendcc.so
-%{_libdir}/rocrail/rocview
-%{_libdir}/rocrail/default/plan.xml
-%{_libdir}/rocrail/default/neustadt.xml
-%{_libdir}/rocrail/default/rocrail.ini
-%{_libdir}/rocrail/default/rocview.ini
-%{_libdir}/rocrail/rocrail.sh
-%{_libdir}/rocrail/rocview.sh
-%{_libdir}/rocrail/rocraild.png
-/etc/init.d/rocraild
-%{_libdir}/rocrail/rocrail.xpm
-%{_libdir}/rocrail/icons/*.*
-%{_libdir}/rocrail/stylesheets/*.*
-%{_libdir}/rocrail/svg
-%{_libdir}/rocrail/symbols/*.*
-%{_datadir}/desktop-directories/Rocrail.directory
-%{_datadir}/applications/Rocrail.desktop
-%{_datadir}/applications/RocrailGUI.desktop
-
-
-
+%doc README
+%{_libdir}/%{name}
+%attr(755,root,root) %{_bindir}/roc*
+%{_datadir}/applications/roc*.desktop
+%{_initrddir}/rocraild
+%{_iconsdir}/roc*
