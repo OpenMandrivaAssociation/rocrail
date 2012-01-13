@@ -21,7 +21,6 @@ Source:		%{name}-%{version}-%{rname}-revno%{revno}.tar.gz
 Patch1:		rocrail-fix_makefile.patch
 BuildRequires:	gcc-c++
 BuildRequires:	wxgtku-devel
-BuildRequires:	bzr
 Requires(post):	rpm-helper
 Requires(preun):	rpm-helper
 
@@ -57,6 +56,9 @@ mv "rocview/svg/themes/DB/signaldistant -2.svg" rocview/svg/themes/DB/signaldist
 find . -name "makefile" -exec sed -i -e 's|CC_EXTRA_FLAGS=.*|CC_EXTRA_FLAGS=-fPIC %{optflags}|g' {} \;
 find . -name "makefile" -exec sed -i -e 's|LNK_FLAGS=|LNK_FLAGS+=|g' {} \;
 find . -name "makefile" -exec sed -i -e 's|DEBUG=.*|DEBUG=|g' {} \;
+
+#do not use bzr to determine version
+find . -name "makefile" -exec sed -i -e 's|bzr revno|echo %{revno}|g' {} \;
 
 export LNK_FLAGS="%{ldflags}"
 
