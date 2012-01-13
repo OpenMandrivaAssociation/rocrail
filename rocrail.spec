@@ -7,7 +7,7 @@
 %define oname	Rocrail
 %define rname	air
 %define revno	986
-%define rel	1
+%define rel	2
 
 Name:		rocrail
 License:	GPLv2+
@@ -19,9 +19,9 @@ URL:		http://www.rocrail.net/
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
 Source:		%{name}-%{version}-%{rname}-revno%{revno}.tar.gz
 Patch1:		rocrail-fix_makefile.patch
-BuildRequires:  gcc-c++
-BuildRequires:  wxGTK-devel >= 2.6
-BuildRequires:  bzr
+BuildRequires:	gcc-c++
+BuildRequires:	wxgtku-devel
+BuildRequires:	bzr
 Requires(post):	rpm-helper
 Requires(preun):	rpm-helper
 
@@ -78,7 +78,7 @@ mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_iconsdir}
 mkdir -p %{buildroot}%{_bindir}
 
-install -m 755 rocrail/package/rocraild $RPM_BUILD_ROOT%{_initrddir}/rocraild
+install -m 755 rocrail/package/rocraild %{buildroot}%{_initrddir}/rocraild
 
 mv	%{buildroot}%{_libdir}/%{name}/%{name}.xpm \
 	%{buildroot}%{_libdir}/%{name}/rocraild.png \
