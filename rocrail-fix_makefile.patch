@@ -1,0 +1,26 @@
+--- ./rocrail/makefile.orig	2010-08-01 14:01:50.000000000 +0200
++++ ./rocrail/makefile	2010-08-01 17:40:42.000000000 +0200
+@@ -125,8 +125,6 @@ fromtar:
+ 
+ install_all:
+ 	-rm -Rf $(DESTDIR)
+-#	-mkdir -p ~/rocrail/locxpm
+-	-mkdir -p $(DESTDIR)
+ 	-mkdir -p $(DESTDIR)
+ 	-cp -p $(OUTDIR)/rocrail$(BINSUFFIX) $(DESTDIR)
+ 	cd ../rocdigs; make install TOOLPREFIX=$(TOOLPREFIX) PLATFORM=$(PLATFORM);
+@@ -139,14 +137,6 @@ install_all:
+ 	-cp -Rpu symbols $(DESTDIR)
+ 	-cp -Rpu package/images $(DESTDIR)
+ 	-cp -pu package/plan.xml $(DESTDIR)
+-	-cp -p package/rocrail.sh $(DESTDIR)
+-	-cp -p package/rocview.sh $(DESTDIR)
+-	-chmod +x $(DESTDIR)/rocrail.sh
+-	-chmod +x $(DESTDIR)/rocview.sh
+-	-cp -p package/Rocrail.desktop /usr/local/share/applications
+-	-cp -p package/Rocview.desktop /usr/local/share/applications
+-	-cp -p package/Rocrail.directory /usr/local/share/desktop-directories
+-#	-chmod -R go+rw ~/rocrail
+ 
+ uninstall_all:
+ 	-rm -Rf $(DESTDIR)
