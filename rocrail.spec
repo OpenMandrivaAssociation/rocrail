@@ -181,3 +181,32 @@ rm -rf %{buildroot}
 %{_datadir}/applications/roc*.desktop
 %{_initrddir}/rocraild
 %{_iconsdir}/roc*
+
+
+%changelog
+* Fri Jan 13 2012 Andrey Bondrov <abondrov@mandriva.org> 1.3-0.rev986.2
++ Revision: 760705
+- Don't use bzr to determine version, drop bzr BuildRequires
+- Rebuild against utf8 wxGTK2.8
+
+* Mon Aug 02 2010 Jani Välimaa <wally@mandriva.org> 1.3-0.rev986.1mdv2011.0
++ Revision: 565123
+- version 1.3 (rev 986)
+- make package somehow working
+
+  + Zombie Ryushu <ryushu@mandriva.org>
+    - Redo SPEC entirely
+    - Try an older version
+    - Try an older version
+    - Try an older version
+    - Try an older version
+    - Try an older version
+    - remove extranious sources
+    - remove extranious sources
+    - Fix bzr
+    - Fix Non-standard grouping
+    - import rocrail
+
+
+* Sat Oct 18 2008 Stephan Linz <linz@li-pro.net> 1.1.0svn3770
+- - initial package for openSUSE
