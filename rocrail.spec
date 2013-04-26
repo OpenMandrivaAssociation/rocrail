@@ -2,19 +2,18 @@
 # as priority is to get package working even somehow (wally 08/2010)
 %define Werror_cflags %nil
 
-%define _provides_exceptions .\\+\\.so$
+%define __noautoprov '.+\.so$'
 
 %define oname	Rocrail
 %define rname	air
 %define revno	986
-%define rel	2
 
 Name:		rocrail
 License:	GPLv2+
 Group:		Networking/Other
 Summary:	Model Railroad Control System
 Version:	1.3
-Release:	%mkrel -c rev%{revno} %{rel}
+Release:	%mkrel -c rev%{revno} 3
 URL:		http://www.rocrail.net/
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
 Source:		%{name}-%{version}-%{rname}-revno%{revno}.tar.gz
