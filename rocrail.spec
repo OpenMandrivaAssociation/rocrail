@@ -14,7 +14,7 @@ Group:		Networking/Other
 Summary:	Model Railroad Control System
 Version:	1.3
 Release:	%mkrel -c rev%{revno} 3
-URL:		http://www.rocrail.net/
+URL:		https://www.rocrail.net/
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
 Source:		%{name}-%{version}-%{rname}-revno%{revno}.tar.gz
 Patch1:		rocrail-fix_makefile.patch
