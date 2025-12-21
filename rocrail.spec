@@ -18,6 +18,7 @@ URL:		https://www.rocrail.net/
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
 Source:		%{name}-%{version}-%{rname}-revno%{revno}.tar.gz
 Patch1:		rocrail-fix_makefile.patch
+BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	wxgtku-devel
 Requires(post):	rpm-helper
