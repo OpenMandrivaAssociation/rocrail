@@ -5,18 +5,16 @@
 %define __noautoprov '.+\.so$'
 
 %define oname	Rocrail
-%define rname	air
-%define revno	986
+%define revno	3357
 
 Name:		rocrail
 License:	GPLv2+
 Group:		Networking/Other
 Summary:	Model Railroad Control System
-Version:	1.3
-Release:	%mkrel -c rev%{revno} 3
+Version:	3357
+Release:	1
 URL:		https://www.rocrail.net/
-BuildRoot:	%{_tmppath}/build-%{name}-%{version}-%{svnrel}
-Source:		%{name}-%{version}-%{rname}-revno%{revno}.tar.gz
+Source:		%{name}-%{version}.tar.gz
 Patch1:		rocrail-fix_makefile.patch
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -45,8 +43,8 @@ RocRail is a 2 tier application written for Linux and Windows
 in C/C++ based on the wxWidgets class library.
 
 %prep
-%setup -q -n %{oname}-Air
-%patch1 -p1
+%setup -q -n %{oname}-%{version}
+%patch -P1 -p1
 
 %build
 #fix filename
